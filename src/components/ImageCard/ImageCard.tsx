@@ -3,7 +3,7 @@ import s from "./ImageCard.module.css"
 
 interface ImageCardProps {
   galleryData: Image
-  onClick: (image: Image)=> void //DRY
+  onClick: (image: Image)=> void 
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({galleryData,

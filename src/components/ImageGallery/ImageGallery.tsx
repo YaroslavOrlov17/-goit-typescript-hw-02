@@ -6,7 +6,7 @@ import { Image } from "../../assets/unsplash-api"
 
 interface ImageGalleryProps {
   galleryData:Image[]
-  onImageClick: (image: Image)=> void // DRY
+  onImageClick: (image: Image)=> void 
 }
 
 const ImageGallery : React.FC<ImageGalleryProps> = ({galleryData,onImageClick}) => {
