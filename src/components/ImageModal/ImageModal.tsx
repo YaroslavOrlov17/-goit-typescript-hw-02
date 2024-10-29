@@ -1,6 +1,7 @@
 import Modal from "react-modal"
 import s from "./ImageModal.module.css"
 import { useEffect } from "react"
+import { Image } from "../../assets/unsplash-api"
 Modal.setAppElement("#root")
 
 const customStyles = {
@@ -24,7 +25,15 @@ const customStyles = {
   },
 }
 
-const ImageModal = ({ isOpen, isClose, image }) => {
+interface ImageModalProps {
+  isOpen: boolean
+  isClose: ()=> void
+  image: Image | null
+}
+
+const ImageModal: React.FC<ImageModalProps> = ({ isOpen, isClose, image }) => {
+
+  if(!image) return null
   //Відключення скроллу під модальним вікном
   useEffect(() => {
     if (isOpen) {

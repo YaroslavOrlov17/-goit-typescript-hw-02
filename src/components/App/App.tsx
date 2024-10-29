@@ -3,30 +3,31 @@ import SearchBar from "../SearchBar/SearchBar"
 import Loader from "../Loader/Loader.jsx"
 import ErrorMessage from "../ErrorMessage/ErrorMessage.jsx"
 import s from "./App.module.css"
-import { fetchImage } from "../../assets/unsplash-api.js"
+import { fetchImage, FetchImageResponse, Image } from "../../assets/unsplash-api.js"
 import { useEffect, useState } from "react"
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn.jsx"
 import ImageModal from "../ImageModal/ImageModal.jsx"
 
+
 function App() {
-  const [images, setImages] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(false)
-  const [page, setPage] = useState(1)
-  const [query, setQuery] = useState("")
-  const [modalIsOpen, setIsOpen] = useState(false)
-  const [selectedImage, setSelectedImage] = useState(null)
-  const [totalImages, setTotalImages] = useState(0)
+  const [images, setImages] = useState<Image[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<boolean>(false)
+  const [page, setPage] = useState<number>(1)
+  const [query, setQuery] = useState<string>("")
+  const [modalIsOpen, setIsOpen] = useState<boolean>(false)
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null)
+  const [totalImages, setTotalImages] = useState<number>(0)
 
   useEffect(() => {
     if (!query) {
       return
     }
-    const getData = async () => {
+    const getData = async (): Promise<void> => {
       try {
         setError(false)
         setLoading(true)
-        const data = await fetchImage(page, query)
+        const data : FetchImageResponse = await fetchImage(page, query)
         setImages((prev) => [...prev, ...data.results])
         setTotalImages(data.total)
       } catch {
@@ -38,25 +39,25 @@ function App() {
     getData()
   }, [query, page])
 
-  const handleSetQuery = (searchValue) => {
+  const handleSetQuery = (searchValue: string):void => {
     setQuery(searchValue)
     setImages([])
     setPage(1)
     setTotalImages(0)
   }
 
-  const handleChangePage = () => {
+  const handleChangePage = (): void => {
     setPage((prev) => prev + 1)
   }
 
-  function handleImageClick(image) {
+  function handleImageClick(image: Image):void {
     if (image) {
       setSelectedImage(image)
       setIsOpen(true)
     }
   }
 
-  function closeModal() {
+  function closeModal():void {
     setIsOpen(false)
   }
 

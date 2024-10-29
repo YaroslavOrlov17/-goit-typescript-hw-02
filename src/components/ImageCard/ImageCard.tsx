@@ -1,6 +1,12 @@
+import { Image } from "../../assets/unsplash-api"
 import s from "./ImageCard.module.css"
 
-const ImageCard = ({
+interface ImageCardProps {
+  galleryData: Image
+  onClick: (image: Image)=> void //DRY
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({galleryData,
   galleryData: {
     urls: { small },
     alt_description,
@@ -13,7 +19,7 @@ const ImageCard = ({
         className={s.image}
         src={small}
         alt={alt_description}
-        onClick={onClick}
+        onClick={()=>onClick(galleryData)}
       />
     </div>
   )

@@ -3,12 +3,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import { IoSearchSharp } from "react-icons/io5";
 
 
-const SearchBar = ({onSubmit}) => {
+interface SearchBarProps{
+  onSubmit: (value: string) => void
+}
 
-const handleSubmit = (e)=>{
+const SearchBar: React.FC<SearchBarProps> = ({onSubmit}) => {
+
+const handleSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
 e.preventDefault()
-const form = e.target
-const value = form.elements.searchQuery.value
+const form = e.currentTarget;
+const value = (form.elements.namedItem("searchQuery") as HTMLInputElement).value;
 if (value.trim()=== ""){
   form.reset()
   toast.error("Please enter your request!")

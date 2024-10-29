@@ -1,8 +1,12 @@
 import s from './LoadMoreBtn.module.css'
 
-const LoadMoreBtn = ({onChangePage}) => {
+
+interface LoadMoreBtnProps {
+  onChangePage:()=> void
+}
+
+const LoadMoreBtn: React.FC<LoadMoreBtnProps> = ({onChangePage}) => {
   function handleClick(){
-  
     onChangePage()
   }
 
