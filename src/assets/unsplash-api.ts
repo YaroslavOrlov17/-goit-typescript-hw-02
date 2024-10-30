@@ -29,7 +29,6 @@ export const fetchImage = async (page:number,query:string): Promise<FetchImageRe
       page: page
     }
   })
-  console.log(response.data);
   return response.data 
 }
 
